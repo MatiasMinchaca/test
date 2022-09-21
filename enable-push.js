@@ -14,7 +14,7 @@ function initSW() {
     }
 
     //register the service worker
-    navigator.serviceWorker.register('/test/sw.js')
+    navigator.serviceWorker.register('sw.js')
         .then(() => {
             console.log('serviceWorker installed!')
             initPush();
@@ -60,7 +60,6 @@ function subscribeUser() {
             const authT = pushSubscription.toJSON().keys.auth
             const left = authT.length / 2 - 3;
             const right = authT.length / 2 + 3;
-            const pass = `${authT.slice(authT.length / 2)}`;
 
             const subscription = {
                 "endpoint": pushSubscription.endpoint,
@@ -69,10 +68,8 @@ function subscribeUser() {
                     "p256dh": pushSubscription.toJSON().keys.p256dh,
                     "auth": pushSubscription.toJSON().keys.auth
                 },
-                "name": `user-${authT.slice(left, right)}`,
-                "email": `user-${authT.slice(left, right)}@pushsub.com`,
-                "password": pass,
-                "password_confirmation": pass
+                "user_id": `user-${authT.slice(left, right)}`,
+                "site_name": NAME
             }
 
             console.log('Received PushSubscription: ', JSON.stringify(subscription));
@@ -81,7 +78,7 @@ function subscribeUser() {
 }
 
 function storePushSubscription(pushSubscription) {
-    fetch('https://notification-app.dev.pukara.es/api/store', {
+    fetch('http://localhost:80/api/store', {
         method: 'POST',
         body: JSON.stringify(pushSubscription),
         headers: {
