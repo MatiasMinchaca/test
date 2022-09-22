@@ -149,7 +149,7 @@ function initPush() {
     let accept = document.querySelector('.btn-blue');
     let deny = document.querySelector('.btn-red');
 
-    if (localStorage.getItem('prompt') !== 'dismissed') {
+    if (localStorage.getItem('prompt') !== 'dismissed' || localStorage.getItem('subscribe') === null) {
         setTimeout(() => {
             permissionPrompt.classList.toggle('show');
         }, 5000);
@@ -195,7 +195,9 @@ function isSubscribed() {
                     if (getSub !== null && localStorage.getItem('subscribe') === null) {
                         const storedSubscription = {
                             "endpoint": getSub.endpoint,
+                            "expirationTime": getSub.expirationTime,
                             "siteKey": PUBLIC_KEY,
+                            "url": document.URL,
                             "keys": {
                                 "auth": getSub.toJSON().keys.auth,
                                 "p256dh": getSub.toJSON().keys.p256dh
