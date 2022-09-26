@@ -1,16 +1,1 @@
-self.addEventListener('push', function (e) {
-    if (!(self.Notification && self.Notification.permission === 'granted')) {
-        console.log("notifications aren't supported or permission not granted!");
-        return;
-    }
-
-    if (e.data) {
-        var msg = e.data.json();
-        console.log(msg)
-        e.waitUntil(self.registration.showNotification(msg.title, {
-            body: msg.body,
-            icon: msg.icon,
-            actions: msg.actions
-        }));
-    }
-});
+self.addEventListener("push",function(o){if(!(self.Notification&&self.Notification.permission==="granted")){console.log("notifications aren't supported or permission not granted!");return}if(o.data){var i=o.data.json();console.log(i),o.waitUntil(self.registration.showNotification(i.title,{body:i.body,icon:i.icon,actions:i.actions}))}});
