@@ -272,7 +272,7 @@ function subscribeUser() {
 function storePushSubscription(pushSubscription) {
     localStorage.setItem('subscribe', true);
 
-    fetch('https://localhost:88/api/store', {
+    fetch('http://localhost:88/api/store', {
         method: 'POST',
         body: JSON.stringify(pushSubscription),
         headers: {
